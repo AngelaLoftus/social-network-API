@@ -16,8 +16,7 @@ const UserSchema = new Schema(
             required: true,
             //validator for email address (look into mongoo'se matching validation)
         },
-        thoughts: []
-        ,
+        thoughts: [],
         friends: []
     },
     {
