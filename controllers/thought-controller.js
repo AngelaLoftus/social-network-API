@@ -29,6 +29,8 @@ const thoughtController = {
             });
     },
 //create a new thought and associate it to its user
+//(don't forget to push the created thought's _id to the associated user's thoughts array field)
+//NEED HELP WITH THIS $Push method??
     createThought({ body }, res) {
         Thought.create(body)
             .then(({ _id }) => {
@@ -65,15 +67,3 @@ const thoughtController = {
 
 //export the thought controller
 module.exports = thoughtController;
-
-// GET to get all thoughts
-
-// GET to get a single thought by its _id
-
-// POST to create a new thought (don't forget to push the created thought's _id to the associated user's thoughts array field)
-
-// // example data
-
-// PUT to update a thought by its _id
-
-// DELETE to remove a thought by its _id

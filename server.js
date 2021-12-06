@@ -1,6 +1,8 @@
+//require express and mongoose packages
 const express = require('express');
 const mongoose = require('mongoose');
 
+//middleware
 const app = express();
 const PORT = process.env.PORT || 3001
 
@@ -10,7 +12,7 @@ app.use(express.static('public'));
 
 //set up connection to mongoDB
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/pizza-hunt', {
-   useNewUrlParser: true,
+  useNewUrlParser: true,
   useUnifiedTopology: true
 });
 

@@ -50,7 +50,7 @@ const userController = {
             })
             .catch(err => res.json(err));
     },
-
+    //delete an existing user
     deleteUser({ params }, res) {
         User.findOneAndDelete({ _id: params.id })
         .then(dbUserData => {
@@ -64,4 +64,5 @@ const userController = {
     }
 };
 
+//export the user controller 
 module.exports = userController;

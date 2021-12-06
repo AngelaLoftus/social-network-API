@@ -1,3 +1,4 @@
+//file to format time stamps into more readable format
 const addDateSuffix = (date) => {
     let dateStr = date.toString();
 
