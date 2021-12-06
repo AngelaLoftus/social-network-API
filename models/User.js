@@ -14,7 +14,7 @@ const UserSchema = new Schema(
             type: String,
             unique: true,
             required: true,
-            //validator for email address (look into mongoo'se matching validation)
+            match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'Please give a valid email address fool']
         },
         thoughts: [ ],
         friends: []
