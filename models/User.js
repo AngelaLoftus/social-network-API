@@ -16,6 +16,8 @@ const UserSchema = new Schema(
             required: true,
             match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'Please give a valid email address fool']
         },
+        //I don't understand how to do thoughts and friends, it says I cannot import a model here
+        //friends is supposed to be self referencing, I don't get that.
         thoughts: [ ],
         friends: []
     },

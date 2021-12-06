@@ -23,5 +23,8 @@ router
     .put(updateUser)
     .delete(deleteUser);
 
+// router
+//     .route('/:userId/friends/:friendId')
+
 //export the router
 module.exports = router;
