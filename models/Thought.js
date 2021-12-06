@@ -5,13 +5,13 @@ const dateFormat = require('../utils/dateFormat');
 const ReactionSchema = new Schema (
     {
         reactionId: {
-            // type: ObjectId,
-            //default value is set to a new objectId
+            type: Schema.Types.ObjectId,
+            default: () => new Types.ObjectId
         },
         reactionBody: {
             type: String,
             required: true,
-            //280 character max
+            maxLength: 280
         },
         username: {
             type: String,
@@ -36,7 +36,8 @@ const ThoughtSchema = new Schema (
         thoughtText: {
             type: String,
             required: true,
-            //must be between 1 and 280 characters
+            minlength: 1,
+            maxlength: 280
         },
         createdAt: {
             type: Date,
@@ -55,7 +56,7 @@ const ThoughtSchema = new Schema (
             virtuals: true
         }
     }
-);
+); 
 
 ThoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;

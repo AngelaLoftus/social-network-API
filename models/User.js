@@ -1,6 +1,6 @@
 const { Schema, model, Types } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
-const { ThoughtSchema } = require('./Thought');
+const Thought = require('./Thought');
 
 const UserSchema = new Schema(
     {
@@ -16,7 +16,7 @@ const UserSchema = new Schema(
             required: true,
             //validator for email address (look into mongoo'se matching validation)
         },
-        thoughts: [],
+        thoughts: [ ],
         friends: []
     },
     {

@@ -1,5 +1,7 @@
+//import the Thought model
 const { Thought } = require('../models');
 
+//controller to contain all thought functions
 const thoughtController = {
 //get all thoughts
     getAllThoughts(req, res) {
@@ -12,6 +14,7 @@ const thoughtController = {
                 res.sendStatus(400);
             });
     },
+//get a single thought by ID
     getThoughtById({ params }, res) {
         Thought.findOne({ _id: params.id })
             .populate({
@@ -25,11 +28,16 @@ const thoughtController = {
                 res.sendStatus(400);
             });
     },
+//create a new thought and associate it to its user
     createThought({ body }, res) {
         Thought.create(body)
-            .then(dbThoughData => res.json(dbThoughtData))
+            .then(({ _id }) => {
+                User.findOneAndUpdate({}, {$push: {user: _id }}, {new: true})
+            })
+            .then(dbThoughtData => res.json(dbThoughtData))
             .catch(err => res.json(err));
     },
+//update an existing thought (put route)
     updateThought({ params, body }, res) {
         Thought.findOneAndUpdate({ _id: params.id}, body, {new: true, runValidators: true})
             .then(dbThoughtData => {
@@ -41,6 +49,7 @@ const thoughtController = {
             })
             .catch(err => res.json(err));
     },
+//delete a thought by id
     deleteThought({params}, res) {
         Thought.findOneAndDelete({ _id: params.id })
         .then(dbThoughtData => {
@@ -54,6 +63,7 @@ const thoughtController = {
     }
 };
 
+//export the thought controller
 module.exports = thoughtController;
 
 // GET to get all thoughts
