@@ -7,7 +7,8 @@ const {
     createUser,
     updateUser,
     deleteUser,
-    addFriend
+    addFriend,
+    deleteFriend
 
 } = require('../../controllers/user-controller');
 
@@ -33,7 +34,7 @@ router
 router
     .route('/:id/friends/:friendId')
     .post(addFriend)
-    .delete();
+    .delete(deleteFriend);
 
 // router
 //     .route('/:userId/friends/:friendId')
