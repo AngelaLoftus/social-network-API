@@ -23,9 +23,11 @@ router.route('/:id')
     .delete(deleteThought)
     .put(updateThought);
 
+//route to add a reaction to a thought
 router.route('/:id/reactions')
     .post(addReaction)
 
+//route to delete a reaction by id
 router.route('/:id/reactions/:reactionId')
     .delete(deleteReaction);
     
