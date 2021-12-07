@@ -1,6 +1,6 @@
 const { Schema, model, Types } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
-const Thought = require('./Thought');
+// const Thought = require('./Thought');
 
 const UserSchema = new Schema(
     {
@@ -16,10 +16,14 @@ const UserSchema = new Schema(
             required: true,
             match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'Please give a valid email address fool']
         },
-        //I don't understand how to do thoughts and friends, it says I cannot import a model here
-        //friends is supposed to be self referencing, I don't get that.
-        thoughts: [ ],
-        friends: []
+        thoughts: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Thought'
+        }],
+        friends: [{
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }]
     },
     {
         toJSON: {
@@ -28,6 +32,10 @@ const UserSchema = new Schema(
         }
     }
 );
+
+UserSchema.virtual('thoughtCount').get(function() {
+    return this.thoughts.length;
+})
 
 UserSchema.virtual('friendCount').get(function() {
     return this.friends.length;

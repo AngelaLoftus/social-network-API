@@ -1,5 +1,5 @@
 //import the Thought model
-const { Thought } = require('../models');
+const { Thought, User } = require('../models');
 
 //controller to contain all thought functions
 const thoughtController = {
@@ -22,22 +22,23 @@ const thoughtController = {
                 select: '-__v'
             })
             .select('-__v')
-            .then(dbThoughtData => res.json(dbThoughtData))
+            .then(dbThoughtData => {
+                console.log('dbthoughtdata', dbThoughtData);
+                res.json(dbThoughtData)})
             .catch(err=> {
                 console.log(err);
                 res.sendStatus(400);
             });
     },
 //create a new thought and associate it to its user
-//(don't forget to push the created thought's _id to the associated user's thoughts array field)
-//NEED HELP WITH THIS $Push method??
     createThought({ body }, res) {
+        console.log("body", body)
         Thought.create(body)
             .then(({ _id }) => {
-                User.findOneAndUpdate({}, {$push: {user: _id }}, {new: true})
+                return User.findOneAndUpdate({ username: body.username}, {$push: {thoughts: _id }}, {new: true})
             })
             .then(dbThoughtData => res.json(dbThoughtData))
-            .catch(err => res.json(err));
+            .catch(err => res.json(err)); 
     },
 //update an existing thought (put route)
     updateThought({ params, body }, res) {
