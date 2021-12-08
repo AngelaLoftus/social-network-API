@@ -1,5 +1,5 @@
 //import the User model
-const { User } = require('../models');
+const { User, Thought} = require('../models');
 
 //controller to contain functions for users
 const userController = {
@@ -27,6 +27,10 @@ const userController = {
             select: '-__v'
         })
         .then(dbUserData => {
+            if(!dbUserData){
+                res.status(404).json({ message: "no user found with this id"});
+                return;
+            }
             console.log('dbuserdata', dbUserData);
             res.json(dbUserData)})
         .catch(err => {
@@ -53,15 +57,18 @@ const userController = {
             .catch(err => res.json(err));
     },
     //delete an existing user
+    //Remove a user's associated thoughts when deleted.
     deleteUser({ params }, res) {
         User.findOneAndDelete(
             { _id: params.id })
-        .then(dbUserData => {
-            if(!dbUserData) {
-                res.status(404).json({ message: "No user found with this id!" });
-                return;
-            }
+            .then(dbUserData => {
+                if(!dbUserData) {
+                    res.status(404).json({ message: "No user found with this id!" });
+                    return;
+                }
             res.json(dbUserData);
+            console.log('userdata.thoughts', dbUserData.thoughts);
+            return Thought.deleteMany({_id: {$in: dbUserData.thoughts}})
         })
         .catch(err => res.json(err));
     },

@@ -23,6 +23,10 @@ const thoughtController = {
             })
             .select('-__v')
             .then(dbThoughtData => {
+                if(!dbThoughtData){
+                    res.status(404).json({ message: "No thought found with this id"});
+                    return;
+                }
                 console.log('dbthoughtdata', dbThoughtData);
                 res.json(dbThoughtData)})
             .catch(err=> {

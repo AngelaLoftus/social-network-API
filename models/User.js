@@ -1,7 +1,7 @@
 const { Schema, model, Types } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
-// const Thought = require('./Thought');
 
+//schema for a user
 const UserSchema = new Schema(
     {
         username: {
@@ -10,12 +10,13 @@ const UserSchema = new Schema(
             required: true,
             trim: true
         },
+        //email must match the regex expression 
         email: {
             type: String,
             unique: true,
             required: true,
             unique: true,
-            match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'Please give a valid email address fool']
+            match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'Please give a valid email address']
         },
         thoughts: [{
             type: Schema.Types.ObjectId,
@@ -34,14 +35,17 @@ const UserSchema = new Schema(
     }
 );
 
+//virtual that counts thoughts a user has
 UserSchema.virtual('thoughtCount').get(function() {
     return this.thoughts.length;
 })
 
+//virtual that counts friends a user has
 UserSchema.virtual('friendCount').get(function() {
     return this.friends.length;
 });
 
+//export the user model
 const User = model('User', UserSchema);
 
 module.exports = User;
