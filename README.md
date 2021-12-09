@@ -21,7 +21,7 @@
 - Link to Github repository
 - [Github](https://github.com/AngelaLoftus/social-network-API) 
 - Link to walkthrough video 
-- [Video](chrome-extension://mmeijimgabbpbgpdklnllpncmdofkcpn/app.html#/files)
+- [Video](https://watch.screencastify.com/v/QjQER1WpT2w4iFXRLBrZ)
 
 # Contact Me
 - Angela Loftus is a budding web developer residing in Austin, TX.
